@@ -107,7 +107,7 @@ def _build_review_body(findings: list, pr_number: int) -> tuple[str, str]:
     findings_sorted = sorted(findings, key=lambda f: agent_order.get(f.get("agent", ""), 9))
 
     has_high = any(f.get("severity") == "high" for f in findings_sorted)
-    overall_event = "REQUEST_CHANGES" if has_high else "COMMENT"
+    overall_event = "COMMENT" if has_high else "REQUEST_CHANGES"
 
     lines = [
         f"## 🤖 Reviewly Automated Review",
@@ -175,10 +175,10 @@ async def post_review(state: PRReviewState) -> dict:
             json={"body": body, "event": event},
         )
         url = result.get("html_url", "")
-        print(f"[post] ✅ Review posted: {url}")
+        print(f"[post] [OK] Review posted: {url}")
         return {"posted_url": url}
     except Exception as e:
-        print(f"[post] ❌ Failed to post review: {format_api_error(e)}")
+        print(f"[post] [Error] Failed to post review: {format_api_error(e)}")
         return {"posted_url": None}
 
 
@@ -244,7 +244,7 @@ async def run_review(owner: str, repo: str, pr_number: int):
     }
 
     print(f"\n{'='*50}")
-    print(f"  Reviewly — reviewing {owner}/{repo} PR #{pr_number}")
+    print(f"  Reviewly - reviewing {owner}/{repo} PR #{pr_number}")
     print(f"{'='*50}\n")
 
     start = asyncio.get_event_loop().time()

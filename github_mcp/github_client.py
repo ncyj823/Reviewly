@@ -96,9 +96,8 @@ def format_api_error(e: Exception) -> str:
             )
         if status == 422:
             return (
-                "Error: Unprocessable request (422). The request was "
-                "understood but invalid - check parameter values (e.g. "
-                "line numbers must exist in the diff for review comments)."
+                f"Error: Unprocessable request (422). Detail: {e.response.text}. "
+                "Check parameter values (e.g. line numbers must exist in the diff for review comments)."
             )
         return f"Error: GitHub API returned status {status}: {e.response.text[:200]}"
     if isinstance(e, httpx.TimeoutException):
