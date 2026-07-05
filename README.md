@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🔍 Reviewly
+#  Reviewly
 
 ### MCP-powered multi-agent PR reviewer
 
