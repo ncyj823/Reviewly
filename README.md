@@ -37,8 +37,8 @@ No manual triggering. No waiting. No "check everything" prompt that catches noth
 │                                 └─────────┬──────────┘         │
 │                                           │                    │
 │                          ┌────────────────┼─────────────┐      │
-│                          ▼                   ▼          ▼      │
-│                    [Security]           [Quality]     [Tests]  │
+│                          ▼                ▼             ▼      │
+│                    [Security]          [Quality]     [Tests]   │
 │                      Agent               Agent         Agent   │
 │                          └───────────────────┼──────────┘      │
 │                                              ▼                 │
