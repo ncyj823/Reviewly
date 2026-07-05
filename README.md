@@ -28,22 +28,22 @@ No manual triggering. No waiting. No "check everything" prompt that catches noth
 
 ```
 ┌─ PR opened on GitHub ──────────────────────────────────────────┐
-│                                                                  │
-│  GitHub Webhook → FastAPI (ack < 1s) → Redis Queue              │
-│                                              │                   │
-│                                    ┌─────────▼──────────┐       │
-│                                    │   github_mcp server │       │
-│                                    │  (custom MCP tools) │       │
-│                                    └─────────┬──────────┘       │
-│                                              │                   │
-│                          ┌───────────────────┼────────────────┐  │
-│                          ▼                   ▼                ▼  │
-│                    [Security]           [Quality]          [Tests]│
-│                      Agent               Agent              Agent │
-│                          └───────────────────┼────────────────┘  │
-│                                              ▼                   │
-│                                    Aggregator → PR Comment        │
-└──────────────────────────────────────────────────────────────────┘
+│                                                                │
+│  GitHub Webhook → FastAPI (ack < 1s) → Redis Queue             │
+│                                           │                    │
+│                                 ┌─────────▼──────────┐         │
+│                                 │   github_mcp server│         │
+│                                 │  (custom MCP tools)│         │
+│                                 └─────────┬──────────┘         │
+│                                           │                    │
+│                          ┌────────────────┼─────────────┐      │
+│                          ▼                   ▼          ▼      │
+│                    [Security]           [Quality]     [Tests]  │
+│                      Agent               Agent         Agent   │
+│                          └───────────────────┼──────────┘      │
+│                                              ▼                 │
+│                                    Aggregator → PR Comment     │
+└────────────────────────────────────────────────────────────────┘
 ```
 
 ## Why this is different
