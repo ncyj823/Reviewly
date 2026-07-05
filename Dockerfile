@@ -28,6 +28,7 @@ RUN pip install --no-cache-dir \
 COPY github_mcp/ ./github_mcp/
 COPY review_pipeline/ ./review_pipeline/
 COPY webhook_service/ ./webhook_service/
+COPY start_worker.py ./
 
 # Add all service directories to Python path
 ENV PYTHONPATH=/app/github_mcp:/app/review_pipeline:/app/webhook_service

@@ -38,17 +38,9 @@ services:
     env_file:
       - github_mcp/.env
     environment:
-      - REDIS_HOST=redis  # use service name, not localhost
-    command: >
-      python -c "
-      from rq import Worker, Queue;
-      from redis import Redis;
-      import os;
-      conn = Redis(host=os.environ.get('REDIS_HOST', 'localhost'), port=6379);
-      w = Worker([Queue('reviews', connection=conn)], connection=conn);
-      w.work()
-      "
-    working_dir: /app/webhook_service
+      - REDIS_HOST=redis
+    command: python /app/start_worker.py
+    working_dir: /app
     depends_on:
       redis:
         condition: service_healthy
