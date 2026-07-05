@@ -7,3 +7,7 @@ Testing Reviewly MCP server
 - [x] LangGraph multi-agent pipeline (security/quality/tests, parallel)
 - [x] FastAPI webhook + Redis queue (auto-triggers on PR open, deduplication)
 - [x] Docker deployment
+- [x] Custom MCP server (4 GitHub tools, tested via MCP Inspector)
+- [x] LangGraph multi-agent pipeline (parallel agents, 5-6s end-to-end)
+- [x] FastAPI webhook + Redis queue (auto-triggers, deduplication)
+- [x] Docker deployment (docker compose up)
