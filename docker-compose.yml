@@ -1,0 +1,55 @@
+services:
+  # Redis — job queue and deduplication store
+  redis:
+    image: redis:alpine
+    container_name: reviewly-redis
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  # FastAPI webhook receiver
+  webhook:
+    build: .
+    container_name: reviewly-webhook
+    ports:
+      - "8000:8000"
+    env_file:
+      - github_mcp/.env
+    environment:
+      - REDIS_HOST=redis  # use service name, not localhost
+    command: >
+      python -m uvicorn main:app
+      --host 0.0.0.0
+      --port 8000
+    working_dir: /app/webhook_service
+    depends_on:
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+  # RQ worker — processes queued review jobs
+  worker:
+    build: .
+    container_name: reviewly-worker
+    env_file:
+      - github_mcp/.env
+    environment:
+      - REDIS_HOST=redis  # use service name, not localhost
+    command: >
+      python -c "
+      from rq import Worker, Queue;
+      from redis import Redis;
+      import os;
+      conn = Redis(host=os.environ.get('REDIS_HOST', 'localhost'), port=6379);
+      w = Worker([Queue('reviews', connection=conn)], connection=conn);
+      w.work()
+      "
+    working_dir: /app/webhook_service
+    depends_on:
+      redis:
+        condition: service_healthy
+    restart: unless-stopped

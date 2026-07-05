@@ -36,7 +36,11 @@ from worker import run_review_job
 app = FastAPI(title="Reviewly Webhook Service")
 
 # Redis connection — used for both job queuing and deduplication
-redis_conn = redis.Redis(host="localhost", port=6379, decode_responses=True)
+redis_conn = redis.Redis(
+    host=os.environ.get("REDIS_HOST", "localhost"),
+    port=6379,
+    decode_responses=True
+)
 review_queue = Queue("reviews", connection=redis_conn)
 
 WEBHOOK_SECRET = os.environ.get("GITHUB_WEBHOOK_SECRET", "")
@@ -83,12 +87,6 @@ async def github_webhook(
     All heavy work (LLM calls, GitHub API calls) is queued to Redis.
     """
     payload_bytes = await request.body()
-
-    # ADD THESE DEBUG LINES
-    print(f"[debug] event: {x_github_event}")
-    print(f"[debug] signature present: {bool(x_hub_signature_256)}")
-    payload = json.loads(payload_bytes)
-    print(f"[debug] action: {payload.get('action', 'N/A')}")
 
     # Step 1: Verify this is actually from GitHub
     if not _verify_signature(payload_bytes, x_hub_signature_256):

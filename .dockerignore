@@ -1,0 +1,20 @@
+# Never include secrets in Docker image
+github_mcp/.env
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# Git
+.git/
+.gitignore
+
+# Virtual environments
+venv/
+.venv/
+
+# Dev tools
+.vscode/
+*.md
