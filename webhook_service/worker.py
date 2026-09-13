@@ -29,6 +29,7 @@ def run_review_job(owner: str, repo: str, pr_number: int):
     """
     print(f"[worker] Starting review job: {owner}/{repo}#{pr_number}")
     try:
+        # pyrefly: ignore [missing-import]
         from pipeline import run_review
         asyncio.run(run_review(owner, repo, pr_number))
         print(f"[worker] [OK] Review complete: {owner}/{repo}#{pr_number}")
