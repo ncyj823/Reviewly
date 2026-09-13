@@ -108,7 +108,7 @@ def _build_review_body(findings: list, pr_number: int) -> tuple[str, str]:
     findings_sorted = sorted(findings, key=lambda f: agent_order.get(f.get("agent", ""), 9))
 
     has_high = any(f.get("severity") == "high" for f in findings_sorted)
-    overall_event = "COMMENT" if has_high else ""
+    overall_event = "COMMENT"
 
     lines = [
         f"## 🤖 Reviewly Automated Review",
