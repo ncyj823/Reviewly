@@ -11,4 +11,4 @@ def get_user_data(user_id):
     return query
 
 def divide(a, b):
-    return a + b  
+    return a - b  
