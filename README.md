@@ -63,7 +63,7 @@ Most "AI code review" projects do one LLM call on a diff. That breaks in product
 |---|---|
 | MCP Server | Python `mcp` SDK (FastMCP), custom GitHub tools |
 | Agent Orchestration | LangGraph (parallel fan-out + fan-in) |
-| LLM | Groq `llama-3.3-70b-versatile` |
+| LLM | Groq `openai/gpt-oss-120b` |
 | Webhook Service | FastAPI + uvicorn |
 | Job Queue | Redis + RQ (SimpleWorker) |
 | Deployment | Docker Compose |

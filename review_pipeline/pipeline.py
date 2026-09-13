@@ -176,10 +176,10 @@ async def post_review(state: PRReviewState) -> dict:
             json={"body": body, "event": event},
         )
         url = result.get("html_url", "")
-        print(f"[post] ✅ Review posted: {url}")
+        print(f"[post] OK Review posted: {url}")
         return {"posted_url": url}
     except Exception as e:
-        print(f"[post] ❌ Failed to post review: {format_api_error(e)}")
+        print(f"[post] ERROR Failed to post review: {format_api_error(e)}")
         return {"posted_url": None}
 
 
